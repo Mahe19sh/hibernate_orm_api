@@ -17,12 +17,7 @@ import service.Servicestudent;
  */
 public final class App {
     public static void main(String[] args) {
-        SessionFactory sessionFactory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Students.class)
-                .addAnnotatedClass(Teachers.class)
-                .addAnnotatedClass(Courses.class)
-                .buildSessionFactory();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
         // Initialize DAOs and Services
         Studentdao studentDAO = new StudentdaoImpl(sessionFactory);
@@ -32,17 +27,17 @@ public final class App {
         System.out.println("Starting Application...");
 
         // Create and save a new Teacher
-        Teachers teacher = new Teacher();
+        Teachers teacher = new Teachers();
         teacher.setName("John Doe");
 
-        Students student = new Student();
+        Students student = new Students();
         student.setName("Alice");
         student.setAge(20);
         student.setTeacher(teacher);
 
-        Courses course = new Course();
-        course.setter("Mathematics");
-        course.setter(student);
+        Courses course = new Courses();
+        course.setName("Mathematics");
+        course.setID(student);
 
         // Save entities to DB
         studentService.saveOrUpdateStudent(student);
@@ -61,6 +56,6 @@ public final class App {
         }
 
         // Clean up Hibernate resources
-        sessionFactory.close();
+        sessionFactory.shutdown();
     }
 }

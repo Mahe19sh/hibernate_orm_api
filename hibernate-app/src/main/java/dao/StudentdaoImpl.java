@@ -12,7 +12,7 @@ import java.util.List;
 public class StudentdaoImpl implements Studentdao{
     private SessionFactory sessionFactory;
 
-    public void StudentDAOImpl(SessionFactory sessionFactory) {
+    public void StudentdaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
